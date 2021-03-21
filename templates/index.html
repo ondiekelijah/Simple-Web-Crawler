@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="text-center mt-4 mb-4">
+                    <h3> {{label}} </h3>
+
+                    <div class="alerts mt-2">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <!-- <strong>Title</strong> --> {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+
+                    <div class="w3-container">
+                        <form action="{{ request.path }}" method="POST">
+                            {{ form.urltext(class_="w3-input w3-border",placeholder="Target url")}}
+                            <button class="w3-btn w3-blue w3-border" type="submit">Scrap</button>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Pull Specific Element <kbd>Default > title </kbd> </p>
+                                    {{ form.specificElement(class_="w3-input w3-border",placeholder="Tag name")}}
+                                </div>
+                                <div class="col-md-8">
+                                    <p><span class="badge badge-pill badge-primary">{{ counter }}</span> Scrap Results for <a href="{{ url }}"> {{ url }}</a> </p>
+                                    <div class="results">
+                                        {% for result in results %}
+                                        <p> {{ result | join(' ')  }} </p>
+                                        {% endfor %}
+
+                                        {% for path in image_paths %}
+                                        <a href=" {{  path }} "> <img src=" {{ path }} " class="img"> </a>
+                                        {% endfor %}
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}

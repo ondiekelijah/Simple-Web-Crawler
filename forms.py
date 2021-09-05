@@ -1,12 +1,8 @@
-from wtforms import (
-    StringField,
-    TextAreaField,
-)
+from wtforms import StringField
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from wtforms.validators import InputRequired, Length, EqualTo, Email, Regexp
+from wtforms.validators import InputRequired
 
 
 class Url(FlaskForm):
-    urltext = StringField()
-    specificElement = StringField()
+    urltext = StringField(validators=[InputRequired()])
+    specificElement = StringField(validators=[InputRequired()])

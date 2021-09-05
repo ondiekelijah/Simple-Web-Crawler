@@ -32,7 +32,7 @@ def image_handler(tag,specific_element,requested_url):
 @app.route("/",methods=("GET", "POST"), strict_slashes=False)
 def index():
     form = Url()
-    if request.method == "POST":
+    if request.method == "POST" and form.validate_on_submit():
 
         global requested_url,specific_element,tag
 

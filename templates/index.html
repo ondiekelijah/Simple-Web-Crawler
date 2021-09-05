@@ -1,64 +1,73 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title%} {{ title }} {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-{% block content%}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                <div class="text-center mt-4 mb-4">
-                    <h3> {{label}} </h3>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/w3.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <title> Web Scrapper </title>
+</head>
 
-                    <div class="alerts mt-2">
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-                        {% if messages %}
-                        {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <!-- <strong>Title</strong> --> {{ message }}
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                        {% endwith %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mb-3">
+               <div class="hero-img">
+                   <img src="{{url_for('static',filename='images/scrappy.png')}}">
+                   <h1>Scrappy Web Scrapper</h1>
+               </div>
+                <div class="m-2">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ message }}
                     </div>
-
-                    <div class="w3-container">
-                        <form action="{{ request.path }}" method="POST">
-                            {{ form.urltext(class_="w3-input w3-border",placeholder="Target url")}}
-                            <button class="w3-btn w3-blue w3-border" type="submit">Scrap</button>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <p>Pull Specific Element <kbd>Default > title </kbd> </p>
-                                    {{ form.specificElement(class_="w3-input w3-border",placeholder="Tag name")}}
-                                </div>
-                                <div class="col-md-8">
-                                    <p><span class="badge badge-pill badge-primary">{{ counter }}</span> Scrap Results for <a href="{{ url }}"> {{ url }}</a> </p>
-                                    <div class="results">
-                                        {% for result in results %}
-                                        <p> {{ result | join(' ')  }} </p>
-                                        {% endfor %}
-
-                                        {% for path in image_paths %}
-                                        <a href=" {{  path }} "> <img src=" {{ path }} " class="img"> </a>
-                                        {% endfor %}
-
-
-                                    </div>
-                                </div>
-
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="w3-container">
+                    <form action="{{ request.path }}" method="POST">
+                        {{ form.urltext(class_="w3-input w3-border",placeholder="Target url")}}
+                        <button class="w3-btn w3-blue w3-border" type="submit">Scrap<i class="bi bi-search m-2"></i></button>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Pull Specific Elements' content</p>
+                                {{ form.specificElement(class_="w3-input w3-border",placeholder="Tag name e.g img,h2,td")}}
                             </div>
-                        </form>
-
-                    </div>
+                            <div class="col-md-8">
+                                <p><span class="badge bg-success">{{ counter }}</span> Scrap Results for <a href="{{ url }}"> {{ url }}</a> </p>
+                                <div class="bg-white shadow p-4 rounded results">
+                                    {% if results %}
+                                    {% for result in results %}
+                                    <p> {{ result | join(' ') }} </p>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% for path in image_paths %}
+                                    <a href=" {{  path }} "> <img src=" {{ path }} " class="img"> </a>
+                                    {% endfor %}
+                                </div>
+                                {% if image_paths %}
+                                <a href="{{url_for('downloader')}}" class="btn btn-primary m-2">Download Images<i class="bi bi-cloud-arrow-down-fill m-2"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
 
-
-{% endblock%}
+</html>

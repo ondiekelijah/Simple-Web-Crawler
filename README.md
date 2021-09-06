@@ -63,3 +63,7 @@ Then on your browser open `localhost:5000` or `http://127.0.0.1:5000/` <br><br>
 You should receive a response — a page similar to the one seen in the screenshot.
 
 ![scrappy home](https://github.com/Dev-Elie/Simple-Web-Crawler/blob/main/static/images/scrappy-home.png)
+</br></br>
+<div align="center"><h1>Let's connect on Twitter</h1></div>
+<p align="center"> <a href="https://twitter.com/dev_elie" target="blank"><img src="https://img.shields.io/twitter/follow/dev_elie?logo=twitter&style=for-the-badge" alt="dev_elie" /></a> </p>
+

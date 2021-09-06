@@ -1,14 +1,19 @@
-from flask import Flask, render_template, request, flash,url_for,redirect,current_app
-from forms import *
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    flash,
+    url_for,
+    current_app
+)
 import urllib.request 
 from urllib.parse import urlparse,urljoin
 from bs4 import BeautifulSoup
-import requests,validators,json ,uuid,pathlib,os
+import requests,validators,uuid,pathlib,os
 
 
 app = Flask(__name__)
-app.secret_key = 'my-super-secret-key'
-
 
 
 def image_handler(tag,specific_element,requested_url):
@@ -31,17 +36,14 @@ def image_handler(tag,specific_element,requested_url):
 
 @app.route("/",methods=("GET", "POST"), strict_slashes=False)
 def index():
-    form = Url()
-    if request.method == "POST" and form.validate_on_submit():
+    if request.method == "POST":
 
-        global requested_url,specific_element,tag
+        try:
+            global requested_url,specific_element,tag
 
-        requested_url = form.urltext.data
-        tag = form.specificElement.data
-        valid = validators.url(requested_url)
+            requested_url = request.form.get('urltext')
+            tag = request.form.get('specificElement')
 
-        if valid==True:
-            requested_url = requested_url
             source = requests.get(requested_url).text
             # parser library?
             soup = BeautifulSoup(source, "html.parser")
@@ -53,15 +55,16 @@ def index():
             image_paths = image_handler(tag,specific_element,requested_url)
 
             return render_template("index.html",
-                form=form,title="Scrap The Web",
                 url = requested_url,
                 counter=counter,
                 image_paths=image_paths,
                 results = specific_element
                 )
-        else:
-            flash(f"Invalid or Malformed URL", "danger")
-    return render_template("index.html",form=form)
+
+        except Exception as e:
+            flash(e, "danger")
+            
+    return render_template("index.html")
 
 
 @app.route("/download",methods=("GET", "POST"), strict_slashes=False)

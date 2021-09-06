@@ -36,13 +36,14 @@
                 </div>
                 <div class="w3-container">
                     <form action="{{ request.path }}" method="POST">
-                        {{ form.csrf_token }}
-                        {{ form.urltext(class_="w3-input w3-border",placeholder="Target url")}}
+
+                        <input type="url" id="urltext" name="urltext" class="w3-input w3-border" placeholder="https://example.com" pattern="https://.*" required>
+
                         <button class="w3-btn w3-blue w3-border" type="submit">Scrap<i class="bi bi-search m-2"></i></button>
                         <div class="row">
                             <div class="col-md-4">
                                 <p>Pull Specific Elements' content</p>
-                                {{ form.specificElement(class_="w3-input w3-border",placeholder="Tag name e.g img,h2,td")}}
+                                <input type="text" id="specificElement" name="specificElement" class="w3-input w3-border" placeholder="Tag name e.g img,h2,td" required>
                             </div>
                             <div class="col-md-8">
                                 <p><span class="badge bg-success">{{ counter }}</span> Scrap Results for <a href="{{ url }}"> {{ url }}</a> </p>

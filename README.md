@@ -58,5 +58,6 @@ Then start the application by executing the run file
 ```
 set FLASK_APP=main
 flask run
-
 ```
+Then on your browser open `localhost:5000` or `http://127.0.0.1:5000/`
+You should receive a response — a page similar to the one seen in the screenshot.

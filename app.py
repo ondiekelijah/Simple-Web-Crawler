@@ -14,6 +14,7 @@ import requests,validators,uuid,pathlib,os
 
 
 app = Flask(__name__)
+app.secret_key = "secret-key"
 
 
 def image_handler(tag,specific_element,requested_url):
@@ -31,8 +32,7 @@ def image_handler(tag,specific_element,requested_url):
                 image_paths.append(full_path)
 
     return image_paths
-
-
+    
 
 @app.route("/",methods=("GET", "POST"), strict_slashes=False)
 def index():
@@ -52,7 +52,11 @@ def index():
             
             counter = len(specific_element)
 
-            image_paths = image_handler(tag,specific_element,requested_url)
+            image_paths = image_handler(
+                tag,
+                specific_element,
+                requested_url
+                )
 
             return render_template("index.html",
                 url = requested_url,

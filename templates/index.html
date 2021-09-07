@@ -53,7 +53,7 @@
                                 <div class="bg-white shadow p-4 rounded results">
                                     {% if results %}
                                     {% for result in results %}
-                                    <p> {{ result | join(' ') }} </p>
+                                    <p> {{ result | striptags }} </p>
                                     {% endfor %}
                                     {% endif %}
                                     {% for path in image_paths %}

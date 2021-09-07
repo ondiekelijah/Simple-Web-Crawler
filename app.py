@@ -82,13 +82,14 @@ def downloader():
 
             picture_filename = filename + file_ext
 
-            picture_path  = os.path.join(
-            current_app.root_path, "static/images/downloads", picture_filename
+            downloads_path = str(pathlib.Path.home() / "Downloads")
+
+            picture_path  = os.path.join(downloads_path, picture_filename
             )
 
             urllib.request.urlretrieve(image_url, picture_path)
 
-        flash("Images saved in your static/downloads directory", "success")
+        flash("Images sucessfully downloaded", "success")
 
     except Exception as e:
         flash(e, "danger")

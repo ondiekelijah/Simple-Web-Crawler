@@ -84,8 +84,7 @@ def downloader():
 
             downloads_path = str(pathlib.Path.home() / "Downloads")
 
-            picture_path  = os.path.join(downloads_path, picture_filename
-            )
+            picture_path  = os.path.join(downloads_path, picture_filename)
 
             urllib.request.urlretrieve(image_url, picture_path)
 

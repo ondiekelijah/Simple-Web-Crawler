@@ -6,8 +6,8 @@ name: CI to Docker Hub
 # Controls when the workflow will run
 on:
   push:
-    branches: [ main ]
-
+    tags:
+      - "v*.*.*"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

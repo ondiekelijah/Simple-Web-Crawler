@@ -1,6 +1,5 @@
 # This is a basic workflow to help you get started with Actions
 
-
 name: CI to Docker Hub
 
 
@@ -19,6 +18,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
       - name: Check Out Repo 
         uses: actions/checkout@v2

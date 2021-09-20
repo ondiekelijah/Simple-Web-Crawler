@@ -29,8 +29,7 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
 
-      - name: GitHub container registry login
-        if: github.event_name != 'pull_request'
+      - if: github.event_name != 'pull_request'
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}

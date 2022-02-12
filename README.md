@@ -1,3 +1,4 @@
+[![CI to Docker Hub](https://github.com/Dev-Elie/Simple-Web-Crawler/actions/workflows/github_registry.yml/badge.svg)](https://github.com/Dev-Elie/Simple-Web-Crawler/actions/workflows/github_registry.yml)
 ## Requirements ,Packages used and Installation
 Download and install Python. Make sure you install Python v3.6.+
  
